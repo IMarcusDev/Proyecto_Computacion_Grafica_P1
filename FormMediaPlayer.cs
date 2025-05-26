@@ -15,7 +15,8 @@ namespace ProyectoGraficaP1
     {
         private Graphics g;
         private Pen p;
-        private Animation a;
+
+        private Animation a1;
 
         public FormMediaPlayer()
         {
@@ -23,26 +24,20 @@ namespace ProyectoGraficaP1
 
             g = picCanvas.CreateGraphics();
             p = new Pen(Color.Black, 1);
-            a = new Animation(10, new Polygon(5, 50, GetCenterPicCanvas()));
+
+            a1 = new Animation(new Polygon(5, 25, GetCenterPicCanvas()));
         }
 
         private void Draw()
         {
-            a.TraslateX = 100;
-            a.TraslateY = 30;
-            a.Rotate = Math.PI;
+            // Add Many Steps as wanted
+            a1.AddStep(10, 100, 30, Math.PI / 3)
+              .AddStep(new AnimationStep(5, 100, -30, -Math.PI / 3))
+              //.AddStep()
+              ;
 
-            DrawFrames(a.GetFrames());
-
-            // New Frames
-            a.TraslateX = -100;
-            a.TraslateY = 30;
-
-            DrawFrames(a.GetFrames());
-
-            a.TraslateX = -150;
-
-            DrawFrames(a.GetFrames());
+            foreach (Polygon poly in a1.Build())
+                g.DrawPolygon(p, poly.GetOutline());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,14 +48,6 @@ namespace ProyectoGraficaP1
         private PointF GetCenterPicCanvas()
         {
             return new PointF(picCanvas.Width/2, picCanvas.Height/2);
-        }
-
-        private void DrawFrames(List<Polygon> frames)
-        {
-            foreach (var frame in frames)
-            {
-                g.DrawPolygon(p, frame.GetOutline());
-            }
         }
     }
 }

@@ -1,74 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace ProyectoGraficaP1.src
 {
     internal class Animation
     {
-        public readonly int NumFrames;
-        public Polygon Polygon_Value;
+        private int NumFrames;
+        public Polygon polygon;
 
-        public float TraslateX = 0;
-        public float TraslateY = 0;
-        public double Rotate = 0;
-        public float Scale = 1;
+        private List<AnimationStep> Animations;
 
-        public Animation(int numFrames, Polygon polygon)
+        public Animation(Polygon p)
         {
-            NumFrames = numFrames;
-            Polygon_Value = polygon;
+            NumFrames = 0;
+            polygon = p;
+            Animations = new List<AnimationStep>();
         }
 
-        public Animation(int numFrames, int numLados, int magnitud)
+        public int GetNumFrames()
         {
-            NumFrames = numFrames;
-            Polygon_Value = new Polygon(numLados, magnitud, new PointF(0, 0), 0);
+            return NumFrames;
         }
 
-        public List<Polygon> GetFrames()
+        public Animation AddStep(AnimationStep step)
         {
-            List<Polygon> frames = new List<Polygon>();
+            Animations.Add(step);
+            NumFrames += step.NumFrames;
+            return this;
+        }
 
-            float traslateXVar = TraslateX / NumFrames;
-            float traslateYVar = -TraslateY / NumFrames;
-            double RotateVar = Rotate / NumFrames;
+        public Animation AddStep(int numFrames, float traslateX = 0, float traslateY = 0, double rotateRad = 0, float scale = 0)
+        {
+            Animations.Add(new AnimationStep(numFrames, traslateX, traslateY, rotateRad, scale));
+            NumFrames += numFrames;
+            return this;
+        }
 
-            for (int i = 0; i < NumFrames; i++)
+        public List<Polygon> Build()
+        {
+            List<Polygon> polygons = new List<Polygon>();
+
+            foreach (AnimationStep step in Animations)
             {
-                Polygon p = new Polygon(Polygon_Value.GetNumLados(), Polygon_Value.GetMagnitud(), Polygon_Value.GetCenter());
-
-                p.TraslateX(traslateXVar * i);
-                p.TraslateY(traslateYVar * i);
-                p.Rotate(RotateVar * i);
-
-                frames.Add(p);
+                foreach (Polygon frames in step.GetFrames(polygon))
+                    polygons.Add(frames);
             }
 
-            // Assign the polygon so new animation start from the last point
-            Polygon_Value.TraslateX(TraslateX);
-            Polygon_Value.TraslateY(-TraslateY);
-            Polygon_Value.Rotate(Rotate);
-
-            RemoveData();
-
-            return frames;
-        }
-
-        // Current Polygon
-        public Polygon GetPolygon()
-        {
-            return Polygon_Value;
-        }
-
-        public void RemoveData()
-        {
-            TraslateX = 0;
-            TraslateY = 0;
-            Rotate = 0;
+            return polygons;
         }
     }
 }

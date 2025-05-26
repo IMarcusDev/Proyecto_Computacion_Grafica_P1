@@ -55,6 +55,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Animation.cs" />
+    <Compile Include="src\AnimationStep.cs" />
     <Compile Include="src\Polygon.cs" />
     <EmbeddedResource Include="FormMediaPlayer.resx">
       <DependentUpon>FormMediaPlayer.cs</DependentUpon>
@@ -80,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
