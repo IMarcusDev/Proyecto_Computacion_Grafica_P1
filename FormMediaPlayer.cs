@@ -55,7 +55,7 @@ namespace ProyectoGraficaP1
             IndexAnimation = 0;
 
             t = new Timer();
-            t.Interval = 250;
+            t.Interval = 150;
             t.Tick += Draw;
             t.Start();
         }

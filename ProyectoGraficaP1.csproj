@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FigureAnimation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FigureAnimation.Designer.cs">
+      <DependentUpon>FigureAnimation.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMediaPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +63,9 @@
     <Compile Include="src\Animation.cs" />
     <Compile Include="src\AnimationStep.cs" />
     <Compile Include="src\Polygon.cs" />
+    <EmbeddedResource Include="FigureAnimation.resx">
+      <DependentUpon>FigureAnimation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMediaPlayer.resx">
       <DependentUpon>FormMediaPlayer.cs</DependentUpon>
     </EmbeddedResource>
@@ -84,6 +93,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
