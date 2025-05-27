@@ -16,7 +16,7 @@ namespace ProyectoGraficaP1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FigureAnimation());
+            Application.Run(new FormMediaPlayer());
         }
     }
 }

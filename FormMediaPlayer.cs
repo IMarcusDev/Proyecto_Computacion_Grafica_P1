@@ -16,12 +16,16 @@ namespace ProyectoGraficaP1
         private Graphics g;
         private Pen p;
 
-        private Animation a1;
         private int IndexAnimation = 0;
 
-        private List<Polygon> CurrentAnimation;
-
         private Timer t;
+
+        List<Animation> movie;
+
+        List<Polygon> poly1;
+        List<Polygon> poly2;
+        List<Polygon> poly3;
+        List<Polygon> poly4;
 
         public FormMediaPlayer()
         {
@@ -30,24 +34,26 @@ namespace ProyectoGraficaP1
             g = picCanvas.CreateGraphics();
             p = new Pen(Color.Black, 1);
 
-            a1 = new Animation(new Polygon(5, 25, GetCenterPicCanvas()));
+            AnimationsPreloaded.center = GetCenterPicCanvas();  // Assign center
+            movie = AnimationsPreloaded.GetMovie3();
 
-            // Add Many Steps as wanted
-            a1.AddStep(10, 100, 30, Math.PI / 3)
-              .AddStep(new AnimationStep(5, 100, -30, -Math.PI / 3))
-              .AddStep(new AnimationStep(15, -100, -30, Math.PI / 3))
-              .AddStep(new AnimationStep(25, 100, 30, -Math.PI / 3))
-              ;
-
-            CurrentAnimation = a1.Build();
+            poly1 = movie[0].Build();
+            //poly2 = movie[1].Build();
+            //poly3 = movie[2].Build();
+            //poly4 = movie[3].Build();
         }
 
         private void Draw(object sender, EventArgs e)
         {
-            g.DrawPolygon(p, CurrentAnimation[IndexAnimation].GetOutline());
-            IndexAnimation++;
+            if (IndexAnimation > poly1.Count() - 2) { t.Stop(); picCanvas.Refresh(); }
+            else { 
+                g.DrawPolygon(p, poly1[IndexAnimation].GetOutline());
+                //g.DrawPolygon(p, poly2[IndexAnimation].GetOutline());
+                //g.DrawPolygon(p, poly3[IndexAnimation].GetOutline());
+                //g.DrawPolygon(p, poly4[IndexAnimation].GetOutline());
+            }
 
-            if (IndexAnimation >= a1.GetNumFrames()) t.Stop();
+            IndexAnimation++;
         }
 
         private void button1_Click(object sender, EventArgs e)

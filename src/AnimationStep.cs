@@ -14,7 +14,7 @@ namespace ProyectoGraficaP1.src
         public float TraslateX = 0;
         public float TraslateY = 0;
         public double Rotate = 0;
-        public float Scale = 1;
+        public float Scale = 0;
 
         public AnimationStep(int numFrames)
         {
@@ -36,6 +36,7 @@ namespace ProyectoGraficaP1.src
             float traslateXVar = TraslateX / NumFrames;
             float traslateYVar = -TraslateY / NumFrames;
             double RotateVar = Rotate / NumFrames;
+            float ScaleVar = Scale / NumFrames;
 
             for (int i = 0; i < NumFrames; i++)
             {
@@ -44,6 +45,7 @@ namespace ProyectoGraficaP1.src
                 p.TraslateX(traslateXVar * i);
                 p.TraslateY(traslateYVar * i);
                 p.Rotate(RotateVar * i);
+                p.ScaleInteger(ScaleVar * i);
 
                 frames.Add(p);
             }

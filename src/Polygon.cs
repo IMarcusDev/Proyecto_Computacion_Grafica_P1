@@ -95,9 +95,14 @@ namespace ProyectoGraficaP1.src
             this.Center.Y = newCenter.Y;
         }
 
-        public void Scale(float x)
+        public void ScalePercentage(float x)
         {
             this.Magnitud *= x;
+        }
+
+        public void ScaleInteger(float x)
+        {
+            this.Magnitud += x;
         }
 
         public PointF[] GetOutline()
