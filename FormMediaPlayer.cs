@@ -59,6 +59,11 @@ namespace ProyectoGraficaP1
         private void button1_Click(object sender, EventArgs e)
         {
             IndexAnimation = 0;
+            if (t != null)
+            {
+                t.Stop();
+                picCanvas.Refresh();
+            }
 
             t = new Timer();
             t.Interval = 150;

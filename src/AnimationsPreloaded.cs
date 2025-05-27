@@ -124,7 +124,7 @@ namespace ProyectoGraficaP1.src
         {
             // Explicación:
             // Figura que inicia desde el centro y, mientras crece, va rotando y formando una "flor"
-            int numLados = 8;
+            int numLados = 5;
             Animation shape = new Animation(new Polygon(numLados, 0, center));
 
             int numFrames = 100;
