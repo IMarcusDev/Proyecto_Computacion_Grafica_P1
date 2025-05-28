@@ -105,7 +105,7 @@ namespace ProyectoGraficaP1
             this.btnChangeFigureForward.Text = " ▶️|";
             this.btnChangeFigureForward.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnChangeFigureForward.UseVisualStyleBackColor = false;
-            this.btnChangeFigureForward.Click += new System.EventHandler(this.btnChangeFigureForward_Click);
+            this.btnChangeFigureForward.Click += new System.EventHandler(this.btnNextFigure_Click);
             // 
             // btnAtrasar
             // 
@@ -141,7 +141,7 @@ namespace ProyectoGraficaP1
             this.btnChangeFigure.Text = " |◀";
             this.btnChangeFigure.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnChangeFigure.UseVisualStyleBackColor = false;
-            this.btnChangeFigure.Click += new System.EventHandler(this.btnChangeFigure_Click);
+            this.btnChangeFigure.Click += new System.EventHandler(this.btnPreviousFigure_Click);
             // 
             // pBrProgreso
             // 
