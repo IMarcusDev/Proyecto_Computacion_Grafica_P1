@@ -26,6 +26,13 @@ namespace ProyectoGraficaP1
         List<Polygon> poly1 = new List<Polygon>();
 
         List<Color> colors = new List<Color> { Color.Violet, Color.Red, Color.Purple, Color.Green, Color.DarkGreen, Color.DarkOrange, Color.Orange, Color.Peru, Color.Pink, Color.Tan};
+
+        List<Color> backgroundColors = new List<Color> { Color.Black, Color.MidnightBlue, Color.DarkSlateGray, Color.DarkOliveGreen, Color.Indigo, Color.DarkSlateBlue };
+
+
+        private int currentBackgroundColorIndex = 0;
+        private Timer backgroundTimer;
+
         private bool _inicio = true;
 
         Bitmap picCanvasCopy; 
@@ -34,6 +41,11 @@ namespace ProyectoGraficaP1
         public FigureAnimation()
         {
             InitializeComponent();
+            backgroundTimer = new Timer();
+            backgroundTimer.Interval = 4000;
+            backgroundTimer.Tick += BackgroundTimer_Tick;
+            backgroundTimer.Start();
+
             g = picCanvas.CreateGraphics();
             p = new Pen(Color.Black, 2);
 
@@ -41,12 +53,21 @@ namespace ProyectoGraficaP1
 
             this.picCanvasCopy = new Bitmap(picCanvas.Width, picCanvas.Height);
             picCanvas.Image = picCanvasCopy;
-            AnimationsPreloaded.center = GetCenterPicCanvas();  // Assign center
-            setNumerateAnimations(AnimationsPreloaded.GetMovie1()); // lista de animaciones
-            setNumerateAnimations(AnimationsPreloaded.GetMovie2()); // lista de animaciones
-            setNumerateAnimations(AnimationsPreloaded.GetMovie3()); // lista de animaciones
+            AnimationsPreloaded.center = GetCenterPicCanvas();
+            setNumerateAnimations(AnimationsPreloaded.GetMovie1()); 
+            setNumerateAnimations(AnimationsPreloaded.GetMovie2()); 
+            setNumerateAnimations(AnimationsPreloaded.GetMovie3());
 
             setFramesToPoly(this.numAnimaciones[2]);
+        }
+
+        private void BackgroundTimer_Tick(object sender, EventArgs e)
+        {
+            currentBackgroundColorIndex++;
+            if (currentBackgroundColorIndex >= backgroundColors.Count)
+                currentBackgroundColorIndex = 0;
+
+            drawAllAgain();
         }
 
         private void setBarCount(int maximun, int minimun = 0)
@@ -87,7 +108,9 @@ namespace ProyectoGraficaP1
         {
             using (Graphics g = Graphics.FromImage(picCanvasCopy))
             {
-                g.Clear(Color.White);
+                Color bgColor = backgroundColors[currentBackgroundColorIndex];
+                g.Clear(bgColor);
+
                 for (int i = 0; i < IndexAnimation && i < framesCopy.Count; i++)
                 {
                     framesCopy[i](g);
@@ -95,7 +118,6 @@ namespace ProyectoGraficaP1
             }
             picCanvas.Invalidate();
         }
-
 
         private void restartAnimation()
         {
@@ -118,9 +140,9 @@ namespace ProyectoGraficaP1
         {
             this.numAnimaciones.Clear();
             AnimationsPreloaded.center = GetCenterPicCanvas();
-            setNumerateAnimations(AnimationsPreloaded.GetMovie1()); // lista de animaciones
-            setNumerateAnimations(AnimationsPreloaded.GetMovie2()); // lista de animaciones
-            setNumerateAnimations(AnimationsPreloaded.GetMovie3()); // lista de animaciones
+            setNumerateAnimations(AnimationsPreloaded.GetMovie1());
+            setNumerateAnimations(AnimationsPreloaded.GetMovie2()); 
+            setNumerateAnimations(AnimationsPreloaded.GetMovie3()); 
         }
 
         private void ensureFramesUpTo(int target)
@@ -213,6 +235,7 @@ namespace ProyectoGraficaP1
                 this.indexPage = 0;
 
             restartAnimation();
+            btnPlay.Text = "⏸";
             actualizarCentro();
 
             this.poly1.Clear();
@@ -227,6 +250,7 @@ namespace ProyectoGraficaP1
                 this.indexPage = this.numAnimaciones.Count() - 1;
 
             restartAnimation();
+            btnPlay.Text = "⏸";
             actualizarCentro();
 
             this.poly1.Clear();
