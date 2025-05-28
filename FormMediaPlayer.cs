@@ -35,7 +35,7 @@ namespace ProyectoGraficaP1
             p = new Pen(Color.Black, 1);
 
             AnimationsPreloaded.center = GetCenterPicCanvas();  // Assign center
-            movie = AnimationsPreloaded.GetMovie3();
+            movie = AnimationsPreloaded.GetMovie3(); // lista de animaciones
 
             poly1 = movie[0].Build();
             //poly2 = movie[1].Build();
